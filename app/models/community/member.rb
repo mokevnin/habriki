@@ -18,7 +18,6 @@ class Community::Member < ActiveRecord::Base
     end
   end
   has_many :comments, :class_name => 'Post::Comment'
-  has_many :authentications
 
   before_create :generate_confirmation_token
 
