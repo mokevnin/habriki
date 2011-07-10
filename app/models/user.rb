@@ -4,9 +4,9 @@ class User < ActiveRecord::Base
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
 
-  validate :email, :presence => true, :email => true, :uniqueness => true
-  validate :first_name, :presence => true
-  validate :last_name, :presence => true
+  validates :email, :presence => true, :email => true, :uniqueness => true
+  validates :first_name, :presence => true
+  validates :last_name, :presence => true
 
   has_many :communities, :dependent => :destroy
   has_many :active_communities, :class_name => 'Community',

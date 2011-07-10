@@ -2,12 +2,12 @@ class Community::Post < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_protected :state
+  attr_accessible :blog, :name, :body, :tag_list
 
-  validate :community, :presence => true
-  validate :member, :presence => true
-  validate :name, :presence => true
-  validate :body, :presence => true
+  validates :community, :presence => true
+  validates :member, :presence => true
+  validates :name, :presence => true
+  validates :body, :presence => true
 
   belongs_to :member
   belongs_to :blog
@@ -29,7 +29,7 @@ class Community::Post < ActiveRecord::Base
     state :draft
     state :draft_again
     state :active do
-      validate :blog, :presence => true
+      validates :blog, :presence => true
     end
 
     event :enable do

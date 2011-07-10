@@ -5,9 +5,9 @@ class Community::Member < ActiveRecord::Base
 
   attr_accessible :login, :email, :password, :password_confirmation, :remember_me
 
-  validate :community, :presence => true
-  validate :email, :email => true, :presence => true, :uniqueness => true
-  validate :login, :presence => true, :uniqueness => {:scope => :community}
+  validates :community, :presence => true
+  validates :email, :email => true, :presence => true, :uniqueness => true
+  validates :login, :presence => true, :uniqueness => {:scope => :community_id}
 
   belongs_to :community, :autosave => true
   has_many :posts do
