@@ -14,6 +14,8 @@ class Community::Post < ActiveRecord::Base
   belongs_to :community
   has_many :comments, :dependent => :destroy
 
+  default_scope order('id DESC')
+
   define_index do
     indexes name
     indexes body

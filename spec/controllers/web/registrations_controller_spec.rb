@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Web::RegistrationsController do
+  render_views
 
   before do
     request.env["devise.mapping"] = Devise.mappings[:user]
