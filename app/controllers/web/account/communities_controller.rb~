@@ -1,0 +1,41 @@
+class AdminUser::CommunitiesController < AdminUser::ApplicationController
+  def index
+    @communities = current_user.communities
+  end
+
+  def show
+
+  end
+
+  def new
+    @community = current_user.communities.build(data)
+  end
+
+  def create
+    @community = current_user.build_community(params[:community])
+    if @community.save
+      flash[:notice] = 'Community was successfully created.'
+      redirect_to :action => :edit
+    else
+      render :action => "new"
+    end
+  end
+
+  def edit
+    @community = locator.community.build_for_edit! params[:id]
+  end
+
+  def update
+    @community = locator.community.update!(params[:id], params[:community])
+    redirect_to(edit_admin_user_community_path(@community),
+                :notice => 'Community was successfully updated.')
+  rescue PersistError => e
+    @community = e.object
+    render :action => "edit"
+  end
+
+  def destroy
+    locator.community.destroy!(params[:id])
+    redirect_to admin_user_communities_path
+  end
+end

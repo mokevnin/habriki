@@ -1,0 +1,24 @@
+%div.grid_16
+  %div.utils
+    = link_to 'new post', new_community_member_post_path
+  - if @posts.any?
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Uri
+          %th State
+          %th Created
+          %th{:colspan => 2} Actions
+      %tfoot
+      - @posts.each do |post|
+        %tr
+          %td= link_to_if post.active?, post, community_blog_post_path(community, post.blog, post)
+          %td= post.blog
+          %td= post.state
+          %td= l post.created_at
+          %td= link_to 'edit', edit_community_member_post_path(community, member, post), :class => :edit
+          %td= link_to 'delete', community_member_post_path(community, member, post), 
+            :method => :delete, :class => :delete, :confirm => 'Remove?'
+
+

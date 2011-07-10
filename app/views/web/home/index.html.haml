@@ -1,0 +1,9 @@
+- if @communities.any?
+  %div.grid_6
+    %h4 Existing communities
+    %table
+      - @communities.each do |community|
+        %tr
+          %td= link_to community, subdomain(community)
+          %td= community.user
+

@@ -1,0 +1,7 @@
+= f.input :blog_id, :collection => community.published_blogs
+= f.input :name
+= f.input :body
+= f.input :state_event, :collection => @post.state_transitions, :label_method => :event, :value_method => :event, :include_blank => @post.human_state_name
+= f.input :tag_list
+= f.submit
+

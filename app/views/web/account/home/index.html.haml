@@ -1,0 +1,19 @@
+%div.grid_6
+  %div.box
+    %h2= link_to 'My communities', account_communities_path
+    %div.utils= link_to 'new community', new_account_community_path
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Uri
+          %th State
+          %th{:colspan => 3} Actions
+      %tfoot
+      - @communities.each do |community|
+        %tr
+          %td= link_to_if community.active?, community, community_path(community)
+          %td= community.uri
+          %td= community.state
+          %td= link_to 'managment', community_admin_root_path(community)
+

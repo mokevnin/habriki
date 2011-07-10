@@ -1,0 +1,29 @@
+!!! Strict
+%html
+  %head
+    %title Habriki
+    = stylesheet_link_tag '/admin-template/css/960.css', '/admin-template/css/template.css', '/admin-template/css/colour.css', 'application'
+    =javascript_include_tag :defaults
+    %body
+      %div.container_16.right
+        - if user_signed_in?
+          = link_to_unless_current current_user, edit_account_user_path
+          = link_to_unless_current 'account', account_communities_path
+          = link_to 'log out', destroy_user_session_path
+        - else
+          = link_to_unless_current 'sign up', new_user_registration_path
+          = link_to_unless_current 'sign in', new_user_session_path
+          - [:google].each do |p|
+            = link_to "by #{p}", user_omniauth_authorize_path(p), :rel => :nofollow
+      %h1#head Habriki
+      %ul#navigation
+        %li
+          = link_to_unless_current 'Home', :root do |name|
+            %span.active= name
+      %div#content.container_16.clearfix
+        - if title
+          %h2= title
+        - [:notice, :error, :message, :alert].each do |key|
+          - unless flash[key].blank?
+            %p{ :class => "flash #{key}" }= flash[key]
+        = yield

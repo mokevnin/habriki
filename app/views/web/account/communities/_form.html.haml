@@ -1,0 +1,5 @@
+= f.input :name
+= f.input :uri, :disabled => @community.persisted?
+= f.input :state_event, :collection => @community.state_transitions, :label_method => :event, :value_method => :event, :include_blank => @community.human_state_name
+= f.button :submit
+

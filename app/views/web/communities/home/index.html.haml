@@ -1,0 +1,3 @@
+- @posts.each do |post|
+  %h2 #{link_to post.blog, community_blog_posts_path(community, post.blog)} - #{link_to post, community_blog_post_path(community, post.blog, post)}
+  %div= post.body

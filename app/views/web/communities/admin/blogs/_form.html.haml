@@ -1,0 +1,5 @@
+= f.input :name
+= f.input :uri, :disabled => @blog.persisted?
+= f.input :state_event, :collection => @blog.state_transitions, :label_method => :event, :value_method => :event, :include_blank => @blog.human_state_name
+= f.button :submit
+

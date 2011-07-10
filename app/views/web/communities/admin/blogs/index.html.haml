@@ -1,0 +1,22 @@
+%div.grid_16
+  %div.utils
+    = link_to 'new blog', new_community_admin_blog_path
+  - if @blogs.any?
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Uri
+          %th State
+          %th Created
+          %th{:colspan => 3} Actions
+      %tfoot
+      - @blogs.each do |blog|
+        %tr
+          %td= link_to_if blog.active?, blog, community_blog_path(community, blog)
+          %td= blog.uri
+          %td= blog.state
+          %td= l blog.created_at
+          %td= link_to 'edit', edit_community_admin_blog_path(community, blog), :class => :edit
+          %td= link_to 'delete', community_admin_blog_path(community, blog), :method => :delete, :class => :delete, :confirm => 'Remove?'
+
