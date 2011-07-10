@@ -5,6 +5,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
+gem 'pg'
 gem 'sqlite3'
 gem 'acts-as-taggable-on'
 gem 'omniauth', '>= 0.2.6'
