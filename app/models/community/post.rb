@@ -20,6 +20,7 @@ class Community::Post < ActiveRecord::Base
     indexes name
     indexes body
     has created_at
+    has community_id
 
     where sanitize_sql(:state => :active)
   end

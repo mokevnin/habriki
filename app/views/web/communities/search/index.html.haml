@@ -1,0 +1,5 @@
+- form_tag community_search_index_path(community), :method => 'get' do
+    = text_field_tag :q, params[:q]
+    = submit_tag "Search", :name => nil
+
+= render :partial => 'shared/posts', :object => @posts
