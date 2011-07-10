@@ -45,10 +45,5 @@ module Habriki
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
     config.middleware.insert_after ActionDispatch::ParamsParser, 'Middlewares::RewriteSubdomainToPath'
-    config.to_prepare do
-      ActionMailer::Base.class_eval do
-        helper :subdomain
-      end
-    end
   end
 end
