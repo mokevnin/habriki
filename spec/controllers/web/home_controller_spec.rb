@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Web::HomeController do
+  render_views
 
   before do
     community = Factory :active_community

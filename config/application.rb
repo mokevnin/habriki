@@ -8,6 +8,12 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Habriki
   class Application < Rails::Application
+
+    configatron.configure_from_yaml(
+      File.join(Rails.root, "config", "config.yml"), 
+      :hash => Rails.env
+    )
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -40,8 +46,8 @@ module Habriki
     config.filter_parameters += [:password, :password_confirmation]
     config.middleware.insert_after ActionDispatch::ParamsParser, 'Middlewares::RewriteSubdomainToPath'
     config.to_prepare do
-      ActionMailer::Base.class_eval do 
-        helper :subdomain 
+      ActionMailer::Base.class_eval do
+        helper :subdomain
       end
     end
   end
