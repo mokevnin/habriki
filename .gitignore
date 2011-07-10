@@ -4,4 +4,8 @@ log/*.log
 tmp/
 *.swp
 bin
+log
 *~
+development.sphinx.conf
+test.sphinx.conf
+db/sphinx
