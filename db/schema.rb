@@ -30,15 +30,6 @@ ActiveRecord::Schema.define(:version => 20110707171855) do
     t.datetime "updated_at"
   end
 
-  create_table "community_member_authentications", :force => true do |t|
-    t.integer  "community_id"
-    t.integer  "member_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "community_members", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
