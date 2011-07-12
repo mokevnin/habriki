@@ -1,0 +1,1 @@
+"!http://travis-ci.org/mokevnin/habriki.png!":http://travis-ci.org/mokevnin/habriki
