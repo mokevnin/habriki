@@ -65,10 +65,10 @@ end
 Factory.define 'community/post' do |f|
   f.name { Factory.next(:name) }
   f.body { Factory.next(:name) }
-  f.association :blog, :factory => :active_community_blog
   f.association :member, :factory => :active_community_member
   f.after_build do |p|
     p.community = p.member.community
+    p.blog = Factory :active_community_blog, :community => p.community
   end
 end
 
@@ -76,4 +76,10 @@ Factory.define :active_community_post, :parent => 'community/post' do |f|
   f.after_create do |p|
     p.enable!
   end
+end
+
+Factory.define 'community/post/comment' do |f|
+  f.body { Factory.next(:name) }
+  f.association :member, :factory => :active_community_member
+  f.association :post, :factory => :active_community_post
 end

@@ -15,11 +15,14 @@ describe Web::RegistrationsController do
   end
 
   describe "POST 'create'" do
+    before do
+      @attrs = Factory.attributes_for(:user)
+    end
     it "should be successful" do
-      attrs = Factory.attributes_for(:user)
-      post :create, :user => attrs
+      post :create, :user => @attrs
       response.should be_redirect
-      user = User.find_by_email attrs[:email]
+
+      user = User.find_by_email @attrs[:email]
       user.should be
     end
   end

@@ -14,6 +14,16 @@ describe Web::SessionsController do
     end
   end
 
+  describe "POST 'create'" do
+    before do
+      @user = Factory :active_user, :password => '123456', :password_confirmation => '123456'
+      @params = {:user => {:email => @user.email, :password => @user.password}}
+    end
+    it "should be successful" do
+      post :create, @params
+      response.should be_redirect
+    end
+  end
 end
 
 

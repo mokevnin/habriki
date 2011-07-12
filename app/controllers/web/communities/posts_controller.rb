@@ -1,5 +1,5 @@
 class Web::Communities::PostsController < Web::Communities::ApplicationController
-  def new
-
+  def recent
+    community.posts.last(10)
   end
 end

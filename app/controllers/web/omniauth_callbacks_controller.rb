@@ -9,7 +9,7 @@ class Web::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     authentication = User::Authentication.find_by_provider_and_uid(provider, uid)
     if authentication
       sign_in authentication.user
-      return redirect_to account_communities_path
+      return redirect_to(account_communities_path)
     end
 
     user = User.find_or_initialize_by_email(omniauth['user_info']['email'])
@@ -23,7 +23,7 @@ class Web::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if user.enable
       sign_in user
       #FIXME notify
-      return redirect_to account_communities_path
+      return redirect_to(account_communities_path)
     end
   end
 end

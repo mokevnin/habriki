@@ -21,7 +21,7 @@ describe Web::PasswordsController do
     end
   end
 
-  describe "GET 'edit'" do
+  describe "PUT 'update'" do
     before do
       @user = Factory :active_user
       @user.send :generate_reset_password_token!

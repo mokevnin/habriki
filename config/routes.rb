@@ -37,6 +37,7 @@ Habriki::Application.routes.draw do
             resources :members, :only => [:index]
             scope :module => 'members' do
               resources :members, :only => [:show, :edit, :update] do
+                resources :comments, :only => [:index]
                 resources :posts
               end
             end
@@ -46,6 +47,9 @@ Habriki::Application.routes.draw do
               end
             end
             resources :posts, :only => [] do
+              collection do
+                get :recent
+              end
               resources :comments, :only => [:create]
             end
             resources :search, :only => [:index]
