@@ -17,7 +17,7 @@
           = link_to_unless_current 'Blogs', community_admin_blogs_path do |name|
             %span.active= name
         %li
-          = link_to_unless_current 'Account', account_communities_path do |name|
+          = link_to_unless_current 'Account', account_communities_url(:host => configatron.host) do |name|
             %span.active= name
         %li
           = link_to_unless_current 'Logout', destroy_user_session_path do |name|
