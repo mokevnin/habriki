@@ -1,7 +1,7 @@
 class Web::Communities::Blogs::PostsController < Web::Communities::ApplicationController
 
   def index
-    @posts = blog.published_posts.paginate :page => params[:page]
+    @posts = blog.published_posts.page params[:page]
   end
 
   def show

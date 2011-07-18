@@ -1,7 +1,7 @@
 class Web::Communities::MembersController < Web::Communities::ApplicationController
 
   def index
-    @members = community.members.paginate :page => params[:page]
+    @members = community.members.page params[:page]
   end
 
 end

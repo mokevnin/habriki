@@ -3,7 +3,7 @@ class Web::Communities::Members::PostsController < Web::Communities::Members::Ap
 
   def index
     scope = member.send(current_community_member ? :posts : :published_posts)
-    @posts = scope.paginate :page => params[:page]
+    @posts = scope.page params[:page]
 
     title 'Posts'
   end

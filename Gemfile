@@ -15,7 +15,7 @@ gem 'state_machine'
 gem 'hoptoad_notifier'
 gem 'haml'
 gem 'sass'
-gem 'will_paginate', '>= 3.0.pre2'
+gem 'kaminari'
 gem 'thinking-sphinx'
 gem "oa-oauth"
 gem "oa-openid"
