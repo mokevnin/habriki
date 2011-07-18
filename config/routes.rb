@@ -1,7 +1,19 @@
 Habriki::Application.routes.draw do
 
-  namespace 'api' do
-
+  constraints :format => 'json' do
+    namespace 'api' do
+      namespace 'community', :path => nil, :module => nil do
+        scope 'communities/:community_id' do
+          scope :module => 'communities' do
+            resources :posts, :only => [] do
+              scope :module => 'posts' do
+                resources :comments, :only => [:create]
+              end
+            end
+          end
+        end
+      end
+    end
   end
 
   namespace 'm', :module => 'mobile' do
@@ -50,7 +62,6 @@ Habriki::Application.routes.draw do
               collection do
                 get :recent
               end
-              resources :comments, :only => [:create]
             end
             resources :search, :only => [:index]
             resources :feeds, :only => [:index]
