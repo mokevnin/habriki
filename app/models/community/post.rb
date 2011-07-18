@@ -2,9 +2,10 @@ class Community::Post < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :blog, :name, :body, :tag_list
+  attr_accessible :blog_id, :name, :body, :tag_list
 
   validates :community, :presence => true
+  validates :blog, :presence => true
   validates :member, :presence => true
   validates :name, :presence => true
   validates :body, :presence => true
@@ -28,9 +29,7 @@ class Community::Post < ActiveRecord::Base
   state_machine :initial => :off do
     state :draft
     state :draft_again
-    state :active do
-      validates :blog, :presence => true
-    end
+    state :active
 
     event :enable do
       transition all => :active
