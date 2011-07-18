@@ -29,11 +29,14 @@ describe Web::Communities::Members::PostsController do
   describe "POST 'create'" do
     it "should be successful" do
       attrs = Factory.attributes_for 'community/post'
+      blog = Factory :active_community_blog, :community => @community
+      attrs[:blog_id] = blog.id
       post :create, @params.merge!(:community_post => attrs)
       response.should be_redirect
 
       p = @community.posts.find_by_name attrs[:name]
       p.should be
+      p.blog.should == blog
     end
   end
 
