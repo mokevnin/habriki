@@ -20,6 +20,7 @@ gem 'thinking-sphinx'
 gem "oa-oauth"
 gem "oa-openid"
 gem 'configatron'
+gem 'mongrel'
 
 # Use unicorn as the web server
 # gem 'unicorn'
