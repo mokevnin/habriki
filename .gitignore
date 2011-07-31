@@ -10,3 +10,4 @@ log
 development.sphinx.conf
 test.sphinx.conf
 db/sphinx
+.idea
