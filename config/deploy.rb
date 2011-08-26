@@ -1,10 +1,11 @@
-require 'fileutils'
+set :rvm_ruby_string, 'ree' # Or whatever env you want it to run in.
+set :rvm_type, :user
 
 set :application, "habriki"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
-File.open(File.dirname(__FILE__) + '/deploy_params.rb').read
+instance_eval File.open(File.dirname(__FILE__) + '/deploy_params.rb').read
 
 set :scm, :git
 
