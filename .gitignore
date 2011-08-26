@@ -11,3 +11,6 @@ development.sphinx.conf
 test.sphinx.conf
 db/sphinx
 .idea
+
+config/deploy_params.rb
+
