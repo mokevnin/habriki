@@ -13,4 +13,4 @@ db/sphinx
 .idea
 
 config/deploy_params.rb
-
+database.yml
