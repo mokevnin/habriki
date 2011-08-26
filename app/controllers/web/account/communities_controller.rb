@@ -22,6 +22,8 @@ class Web::Account::CommunitiesController < Web::Account::ApplicationController
 
   def new
     @community = Community.new
+
+    title 'New community'
   end
 
   def create

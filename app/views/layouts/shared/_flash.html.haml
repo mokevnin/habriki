@@ -1,0 +1,4 @@
+- [:notice, :error, :message, :alert].each do |key|
+  - if flash && flash[key].present?
+    %p{ :class => "flash #{key}" }= flash[key]
+

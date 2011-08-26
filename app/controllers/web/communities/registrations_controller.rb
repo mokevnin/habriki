@@ -3,6 +3,8 @@ class Web::Communities::RegistrationsController < Web::Communities::ApplicationC
 
   def new
     @member = community.members.build
+
+    title 'Sign up'
   end
 
   def create

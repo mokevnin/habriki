@@ -1,4 +1,4 @@
 class Web::Communities::SessionsController < Devise::SessionsController
-  include ControllerHelpers::Web
+  include ControllerHelpers::Web::Communities
 end
 

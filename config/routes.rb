@@ -5,9 +5,22 @@ Habriki::Application.routes.draw do
       namespace 'community', :path => nil, :module => nil do
         scope 'communities/:community_id' do
           scope :module => 'communities' do
+            resources :members, :only => [] do
+              scope :module => 'members' do
+                resources :ratings, :only => [:create]
+              end
+            end
             resources :posts, :only => [] do
               scope :module => 'posts' do
+                resources :ratings, :only => [:create]
                 resources :comments, :only => [:create]
+              end
+            end
+            scope :module => 'posts' do
+              resources :comments, :only => [] do
+                scope :module => 'comments' do
+                  resources :ratings, :only => [:create]
+                end
               end
             end
           end
@@ -63,7 +76,7 @@ Habriki::Application.routes.draw do
                 get :recent
               end
             end
-            resources :search, :only => [:index]
+            resource :search, :only => [:show]
             resources :feeds, :only => [:index]
             namespace 'admin' do
               root :to => 'home#index'

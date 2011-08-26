@@ -14,6 +14,7 @@ class Community < ActiveRecord::Base
   has_many :posts, :dependent => :restrict
   has_many :published_posts, :class_name => 'Community::Post',
     :conditions => {:state => :active}
+  has_many :comments, :through => :published_posts, :class_name => 'Community::Post::Comment'
 
   state_machine :initial => :off do
     state :off

@@ -1,20 +1,17 @@
 source 'http://rubygems.org'
 
-gem 'rails'
+gem 'rails', '>= 3.0.10'
 gem 'jquery-rails'
 gem 'devise'
-gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 
 gem 'pg'
-gem 'sqlite3'
 gem 'acts-as-taggable-on'
-gem 'omniauth', '>= 0.2.6'
+gem 'omniauth'
 gem 'simple_form'
 gem 'ancestry'
 gem 'state_machine'
 gem 'hoptoad_notifier'
 gem 'haml'
-gem 'sass'
 gem 'kaminari'
 gem 'thinking-sphinx'
 gem "oa-oauth"

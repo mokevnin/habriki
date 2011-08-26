@@ -1,0 +1,3 @@
+- simple_form_for @post.comments.build, :url => api_community_post_comments_path(community, @post), :remote => true do |f|
+  = f.input :body
+  = f.submit 'Send'

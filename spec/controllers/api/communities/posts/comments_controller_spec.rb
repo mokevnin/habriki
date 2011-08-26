@@ -6,9 +6,12 @@ describe Api::Communities::Posts::CommentsController do
   before do
     @post = Factory :active_community_post
     @params = {:community_id => @post.community.to_param, :post_id => @post.to_param}
+    @member = Factory :active_community_member
+
+    sign_in @member
   end
 
-  describe "GET 'create'" do
+  describe "POST 'create'" do
     before do
       @attrs = Factory.attributes_for 'community/post/comment'
     end

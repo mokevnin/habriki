@@ -1,23 +1,21 @@
-%div.grid_16
-  %div.utils
-    = link_to 'new community', new_account_community_path
-  - if @communities.any?
-    %table
-      %thead
-        %tr
-          %th Name
-          %th Uri
-          %th State
-          %th Created
-          %th{:colspan => 2} Actions
-      %tfoot
-      - @communities.each do |community|
-        %tr
-          %td= link_to community, subdomain(community)
-          %td= community.uri
-          %td= community.state
-          %td= l community.created_at
-          %td= link_to 'edit', edit_account_community_path(community), :class => :edit
-          %td= link_to 'delete', account_community_path(community), 
-            :method => :delete, :class => :delete, :confirm => 'Remove?'
-
+- if @communities.any?
+  %table
+    %thead
+      %tr
+        %th Name
+        %th Uri
+        %th State
+        %th Created
+        %th{:colspan => 2} Actions
+    %tfoot
+    - @communities.each do |community|
+      %tr
+        %td= link_to community, subdomain(community)
+        %td= community.uri
+        %td= community.state
+        %td= l community.created_at
+        %td= link_to 'edit', edit_account_community_path(community), :class => :edit
+        %td= link_to 'delete', account_community_path(community), 
+          :method => :delete, :class => :delete, :confirm => 'Remove?'
+- else
+  %p Create you first community, please.

@@ -5,18 +5,21 @@ class Web::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     omniauth = request.env["omniauth.auth"]
     provider = omniauth['provider']
     uid      = omniauth['uid'].to_s
+    info     = omniauth['user_info']
 
     authentication = User::Authentication.find_by_provider_and_uid(provider, uid)
     if authentication
-      sign_in authentication.user
+      sign_in authentication.user, :event => :authentication
       return redirect_to(account_communities_path)
     end
 
-    user = User.find_or_initialize_by_email(omniauth['user_info']['email'])
-    unless user.persisted?
-      user.first_name = omniauth['user_info']['first_name']
-      user.last_name  = omniauth['user_info']['last_name']
-      user.password   = Devise.friendly_token
+    unless user = User.find_by_email(info['email'])
+      user = User.new do |u|
+        u.email = info['email']
+        u.first_name = info['first_name']
+        u.last_name = info['last_name']
+        u.password = Devise.friendly_token
+      end
     end
     user.authentications.build :uid => uid, :provider => provider
 
@@ -25,6 +28,8 @@ class Web::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       #FIXME notify
       return redirect_to(account_communities_path)
     end
+
+    #TODO handle errors
   end
 end
 

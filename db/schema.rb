@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110707171855) do
+ActiveRecord::Schema.define(:version => 20110718075632) do
 
   create_table "communities", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(:version => 20110707171855) do
     t.string   "uri"
     t.integer  "community_id"
     t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "community_member_ratings", :force => true do |t|
+    t.integer  "member_id"
+    t.integer  "voter_id"
+    t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -63,6 +71,14 @@ ActiveRecord::Schema.define(:version => 20110707171855) do
   add_index "community_members", ["reset_password_token"], :name => "index_community_members_on_reset_password_token", :unique => true
   add_index "community_members", ["unlock_token"], :name => "index_community_members_on_unlock_token", :unique => true
 
+  create_table "community_post_comment_ratings", :force => true do |t|
+    t.integer  "comment_id"
+    t.integer  "member_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "community_post_comments", :force => true do |t|
     t.integer  "post_id"
     t.integer  "member_id"
@@ -74,6 +90,14 @@ ActiveRecord::Schema.define(:version => 20110707171855) do
   end
 
   add_index "community_post_comments", ["ancestry"], :name => "index_community_post_comments_on_ancestry"
+
+  create_table "community_post_ratings", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "member_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "community_posts", :force => true do |t|
     t.integer  "community_id"

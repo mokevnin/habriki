@@ -1,29 +1,30 @@
-!!! Strict
+!!! 5
 %html
   %head
     %title Habriki
-    = stylesheet_link_tag '/admin-template/css/960.css', '/admin-template/css/template.css', '/admin-template/css/colour.css', 'application'
-    =javascript_include_tag :defaults
-    %body
-      %div.container_16.right
-        - if user_signed_in?
-          = link_to_unless_current current_user, edit_account_user_path
-          = link_to_unless_current 'account', account_communities_path
-          = link_to 'log out', destroy_user_session_path
-        - else
-          = link_to_unless_current 'sign up', new_user_registration_path
-          = link_to_unless_current 'sign in', new_user_session_path
-          - [:google].each do |p|
-            = link_to "by #{p}", user_omniauth_authorize_path(p), :rel => :nofollow
-      %h1#head Habriki
-      %ul#navigation
-        %li
-          = link_to_unless_current 'Home', :root do |name|
-            %span.active= name
-      %div#content.container_16.clearfix
-        - if title
-          %h2= title
-        - [:notice, :error, :message, :alert].each do |key|
-          - unless flash[key].blank?
-            %p{ :class => "flash #{key}" }= flash[key]
-        = yield
+    = stylesheet_link_tag 'bootstrap/bootstrap-1.1.0', 'application'
+    = javascript_include_tag :defaults
+    = csrf_meta_tag
+  %body
+    %div.topbar
+      %div.fill
+        %div.container
+          %h3= link_to 'Habriki', :root
+          %ul
+            - if user_signed_in?
+              = render :partial => 'layouts/shared/menu'
+            - else
+              %li{:class => current_page?(new_user_registration_path) && 'active'}= link_to 'sign up', new_user_registration_path
+              %li= link_to 'sign in', new_user_session_path
+              - [:google].each do |p|
+                %li= link_to "by #{p}", user_omniauth_authorize_path(p), :rel => :nofollow
+    %h1 Habriki
+    %div.container
+      - if title
+        %div.page-header
+          %h1= title
+      = render  'layouts/shared/flash', :locals => {:flash => flash}
+      = yield
+    %footer
+      %div.container
+        %p info@habriki.com

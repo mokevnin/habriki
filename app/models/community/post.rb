@@ -14,6 +14,7 @@ class Community::Post < ActiveRecord::Base
   belongs_to :blog
   belongs_to :community
   has_many :comments, :dependent => :destroy
+  has_many :ratings, :dependent => :destroy
 
   default_scope order('id DESC')
 

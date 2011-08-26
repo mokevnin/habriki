@@ -1,0 +1,3 @@
+- [['account', account_communities_path], ['logout', destroy_user_session_path]].each do |a|
+  %li{active_class(a[1])}= link_to a[0], a[1]
+
