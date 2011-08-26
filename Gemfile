@@ -10,7 +10,7 @@ gem 'omniauth'
 gem 'simple_form'
 gem 'ancestry'
 gem 'state_machine'
-gem 'hoptoad_notifier'
+gem "airbrake", "~> 3.0.rc2"
 gem 'haml'
 gem 'kaminari'
 gem 'thinking-sphinx'
