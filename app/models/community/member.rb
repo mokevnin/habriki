@@ -22,16 +22,16 @@ class Community::Member < ActiveRecord::Base
 
   before_create :generate_confirmation_token
 
-  state_machine :initial => :waiting_email_confirmation do
+  state_machine :initial => :waiting_email_confirm do
     state :off
-    state :waiting_email_confirmation
+    state :waiting_email_confirm
     state :active
 
     event :enable do
       transition all => :active
     end
 
-    before_transition :waiting_email_confirmation => :active do |user, transition|
+    before_transition :waiting_email_confirm => :active do |user, transition|
       user.confirmed_at = Time.now
     end
   end

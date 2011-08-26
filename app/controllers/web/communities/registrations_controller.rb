@@ -11,7 +11,7 @@ class Web::Communities::RegistrationsController < Web::Communities::ApplicationC
     @member = community.members.build(params[:community_member])
     if @member.save
       flash[:notice] = 'confirmation'
-      CommunityMemberMailer.confirmation_instructions(@member).deliver
+      CommunityMemberMailer.confirmation_instructions(community, @member).deliver
       redirect_to :root
     else
       clean_up_passwords(@member)
