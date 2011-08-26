@@ -37,4 +37,8 @@ class Community < ActiveRecord::Base
   def to_s
     name
   end
+
+  def host
+    "http://#{uri}.#{configatron.host_name}" if self.persisted?
+  end
 end

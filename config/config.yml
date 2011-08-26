@@ -1,12 +1,12 @@
 production: &production
-  host: http://www.habriki.com
-  host_name: www.habriki.com
+  host: http://habriki.com
+  host_name: habriki.com
   email: info@habriki.com
 
 development: &development
   <<: *production
-  host: http://www.habriki.local
-  host_name: www.habriki.local
+  host: http://habriki.local
+  host_name: habriki.local
 
 test:
   <<: *development
