@@ -20,5 +20,17 @@ namespace :deploy do
   end
 end
 
+namespace :configs do
+  desc <<-EOD
+    [internal] Creates the symlink to configs shared folder
+    for the most recently deployed version.
+  EOD
+  task :symlink, :except => { :no_release => true } do
+    run "ln -nfs #{shared_path}/configs #{release_path}/config/database.yml"
+  end
+
+  after "deploy:finalize_update", "configs:symlink"
+end
+
 require './config/boot'
 require 'hoptoad_notifier/capistrano'
