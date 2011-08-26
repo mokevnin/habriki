@@ -26,7 +26,7 @@ namespace :configs do
     for the most recently deployed version.
   EOD
   task :symlink, :except => { :no_release => true } do
-    run "ln -nfs #{shared_path}/configs #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/configs/database.yml #{release_path}/config/database.yml"
   end
 
   after "deploy:finalize_update", "configs:symlink"
