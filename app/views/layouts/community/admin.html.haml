@@ -1,32 +1,24 @@
-!!! Strict
+!!! 5
 %html
   %head
-    %title #{community}
-    = stylesheet_link_tag '/admin-template/css/960.css', '/admin-template/css/template.css', '/admin-template/css/colour.css', 'application'
-    %body
-      %div.container_16.right
-        = link_to_unless_current current_user, edit_account_user_url(:host => configatron.host)
-        = link_to_unless_current 'account', account_communities_url(:host => configatron.host)
-        = link_to 'log out', destroy_user_session_url(:host => configatron.host.to_s)
-      %h1#head #{community}
-      %ul#navigation
-        %li
-          = link_to_unless_current 'Community dashboard', community_admin_root_path(community) do |name|
-            %span.active= name
-        %li
-          = link_to_unless_current 'Blogs', community_admin_blogs_path do |name|
-            %span.active= name
-        %li
-          = link_to_unless_current 'Account', account_communities_url(:host => configatron.host) do |name|
-            %span.active= name
-        %li
-          = link_to_unless_current 'Logout', destroy_user_session_path do |name|
-            %span.active= name
-      %p= [:notice, :error, :alert].map {|t| puts flash[t] if flash[t].present? }
-      %div#content.container_16.clearfix
-        %h2= title
-        - [:notice, :error, :message, :alert].each do |key|
-          - unless flash[key].blank?
-            %p{ :class => "flash #{key}" }= flash[key]
-        = yield
+    %title= community
+    = render :partial => 'layouts/shared/head'
+  %body
+    = render :partial => 'layouts/shared/community/topbar'
+    %div#masthead.container
+      %div.row
+        %div.span17
+          %div.page-header
+            %h4= 'Admin'
+          %div.container-fluid
+            %div.sidebar
+              - [['Community dashboard', community_admin_root_path], ['new blog', new_community_admin_blog_path], ['blogs', community_admin_blogs_path]].each do |a|
+                %br= link_to_unless_current a[0], a[1]
+            %div.content
+              - if title
+                %div.page-header
+                  %h3= title
+              = render :partial => 'layouts/shared/flash', :locals => {:flash => flash}
+              = yield
+    = render :partial => 'layouts/shared/footer'
 

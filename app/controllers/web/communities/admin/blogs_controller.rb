@@ -37,8 +37,10 @@ class Web::Communities::Admin::BlogsController < Web::Communities::Admin::Applic
   end
 
   def destroy
-    send :edit
-    @blog.destroy
+    if community.blogs.find_by_uri!(params[:id]).try(:destroy)
+      flash[:notice] = 'Blog was removed.'
+    end
+
     redirect_to :action => :index
   end
 end

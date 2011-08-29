@@ -1,2 +1,3 @@
-= simple_form_for @post, :url => community_member_posts_path(community, member) do |f|
+- title 'New post'
+= simple_form_for @post, :url => community_member_posts_path(member) do |f|
   = render 'form', :f => f

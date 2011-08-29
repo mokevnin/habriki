@@ -4,9 +4,9 @@ class Web::Communities::SearchesController < Web::Communities::ApplicationContro
     search_params = {}
     search_params[:page] = params[:page]
 
-    #TODO search history
+    #TODO save search history
 
-    @posts = community.posts.search search_params
+    @posts = community.posts.search @q, search_params
 
     title 'Search'
   end

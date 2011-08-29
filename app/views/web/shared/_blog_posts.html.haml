@@ -1,0 +1,5 @@
+- if blog_posts.any?
+  - blog_posts.each do |post|
+    %h2 #{link_to post, community_blog_post_path(post.blog, post)}
+    %div= truncate post.body, :length => 500
+

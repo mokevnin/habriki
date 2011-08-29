@@ -1,4 +1,9 @@
 - if posts.any?
   - posts.each do |post|
-    %h2 #{link_to post.blog, community_blog_path(community, post.blog)} - #{link_to post, community_blog_post_path(community, post.blog, post)}
+    %h3.inline-block #{link_to post.blog, community_blog_posts_path(post.blog)} - #{link_to_if post.active?, post, community_blog_post_path(post.blog, post)}
+    - if post.member == current_community_member
+      %span= link_to 'edit', edit_community_member_post_path(post.member, post) 
     %div= truncate post.body, :length => 500
+    %div
+      - post.tags.each do |tag|
+        = link_to tag, community_tag_path(tag)

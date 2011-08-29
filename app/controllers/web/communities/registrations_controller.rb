@@ -9,6 +9,7 @@ class Web::Communities::RegistrationsController < Web::Communities::ApplicationC
 
   def create
     @member = community.members.build(params[:community_member])
+    @member.generate_confirmation_token
     if @member.save
       flash[:notice] = 'confirmation'
       CommunityMemberMailer.confirmation_instructions(community, @member).deliver

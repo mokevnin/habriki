@@ -5,7 +5,8 @@ describe Web::Communities::Blogs::PostsController do
 
   before do
     @post = Factory :active_community_post
-    @params = {:community_id => @post.community.to_param, :blog_id => @post.blog.to_param}
+    @params = {:blog_id => @post.blog.to_param}
+    request.host = @post.community.hostname
   end
 
   describe "GET 'index'" do

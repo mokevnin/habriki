@@ -3,7 +3,7 @@ class Community::Member < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :validatable,
          :recoverable, :rememberable, :trackable
 
-  attr_accessible :login, :email, :password, :password_confirmation, :remember_me
+  attr_accessible :login, :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
 
   validates :community, :presence => true
   validates :email, :email => true, :presence => true, :uniqueness => true
@@ -17,10 +17,9 @@ class Community::Member < ActiveRecord::Base
       post
     end
   end
+  has_many :published_posts, :class_name => 'Community::Post', :conditions => {:state => :active}
   has_many :comments, :class_name => 'Post::Comment'
   has_many :ratings
-
-  before_create :generate_confirmation_token
 
   state_machine :initial => :waiting_email_confirm do
     state :off
@@ -48,6 +47,10 @@ class Community::Member < ActiveRecord::Base
 
   def to_s
     login
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def generate_confirmation_token

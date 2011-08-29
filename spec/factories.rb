@@ -1,85 +1,90 @@
-Factory.sequence :email do |n|
-  "#{n}@gmail.com"
-end
+FactoryGirl.define do
 
-Factory.sequence :name do |n|
-  "name-#{n}"
-end
-
-Factory.sequence :uri do |n|
-  "uri-#{n}"
-end
-
-Factory.define :user do |f|
-  f.email { Factory.next(:email) }
-  f.first_name 'first name'
-  f.last_name 'last name'
-  f.password 'password'
-  f.password_confirmation 'password'
-end
-
-Factory.define :active_user, :parent => :user do |f|
-  f.after_build do |u|
-    u.enable
+  sequence :email do |n|
+    "#{n}@gmail.com"
   end
-end
 
-Factory.define 'community/member' do |f|
-  f.association :community, :factory => :active_community
-  f.login { Factory.next(:name) }
-  f.email { Factory.next(:email) }
-  f.password 'password'
-  f.password_confirmation 'password'
-end
-
-Factory.define :active_community_member, :parent => 'community/member' do |f|
-  f.after_build do |m|
-    m.enable
+  sequence :name do |n|
+    "name-#{n}"
   end
-end
 
-Factory.define :community do |f|
-  f.uri { Factory.next(:uri) }
-  f.name { Factory.name }
-  f.association :user, :factory => :active_user
-end
-
-Factory.define :active_community, :parent => :community do |f|
-  f.after_build do |o|
-    o.enable
+  sequence :uri do |n|
+    "uri-#{n}"
   end
-end
 
-Factory.define 'community/blog' do |f|
-  f.uri { Factory.next(:uri) }
-  f.name { Factory.next(:name) }
-  f.association :community, :factory => :active_community
-end
-
-Factory.define :active_community_blog, :parent => 'community/blog' do |f|
-  f.after_create do |b|
-    b.enable!
+  factory :user do
+    email { Factory.next(:email) }
+    first_name { Factory.next :name }
+    last_name { Factory.next :name }
+    password 'password'
+    password_confirmation 'password'
   end
-end
 
-Factory.define 'community/post' do |f|
-  f.name { Factory.next(:name) }
-  f.body { Factory.next(:name) }
-  f.association :member, :factory => :active_community_member
-  f.after_build do |p|
-    p.community = p.member.community
-    p.blog = Factory :active_community_blog, :community => p.community
+  factory :active_user, :parent => :user do
+    after_build do |u|
+      u.enable
+    end
   end
-end
 
-Factory.define :active_community_post, :parent => 'community/post' do |f|
-  f.after_create do |p|
-    p.enable!
+  factory 'community/member' do
+    association :community, :factory => :active_community
+    login { Factory.next(:name) }
+    email { Factory.next(:email) }
+    first_name { Factory.next(:name) }
+    last_name { Factory.next(:name) }
+    password 'password'
+    password_confirmation 'password'
   end
-end
 
-Factory.define 'community/post/comment' do |f|
-  f.body { Factory.next(:name) }
-  f.association :member, :factory => :active_community_member
-  f.association :post, :factory => :active_community_post
+  factory :active_community_member, :parent => 'community/member' do
+    after_build do |m|
+      m.enable
+    end
+  end
+
+  factory :community do
+    uri { Factory.next(:uri) }
+    name { Factory.name }
+    association :user, :factory => :active_user
+  end
+
+  factory :active_community, :parent => :community do
+    after_build do |o|
+      o.enable
+    end
+  end
+
+  factory 'community/blog' do
+    uri { Factory.next(:uri) }
+    name { Factory.next(:name) }
+    association :community, :factory => :active_community
+  end
+
+  factory :active_community_blog, :parent => 'community/blog' do
+    after_create do |b|
+      b.enable!
+    end
+  end
+
+  factory 'community/post' do
+    name { Factory.next(:name) }
+    body { Factory.next(:name) }
+    association :member, :factory => :active_community_member
+    after_build do |p|
+      p.community = p.member.community
+      p.blog = Factory :active_community_blog, :community => p.community
+    end
+  end
+
+  factory :active_community_post, :parent => 'community/post' do
+    after_create do |p|
+      p.enable!
+    end
+  end
+
+  factory 'community/post/comment' do
+    body { Factory.next(:name) }
+    association :member, :factory => :active_community_member
+    association :post, :factory => :active_community_post
+  end
 end

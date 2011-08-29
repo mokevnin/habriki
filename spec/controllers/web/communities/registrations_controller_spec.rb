@@ -7,12 +7,12 @@ describe Web::Communities::RegistrationsController do
     request.env["devise.mapping"] = Devise.mappings[:community_member]
 
     @community = Factory :active_community
-    @params = {:community_id => @community.to_param}
+    request.host = @community.hostname
   end
 
   describe "GET 'new'" do
     it "should be success" do
-      get :new, @params
+      get :new
       response.should be_success
     end
   end
@@ -21,7 +21,7 @@ describe Web::Communities::RegistrationsController do
     it "should be success" do
       attrs = Factory.attributes_for('community/member')
 
-      post :create, @params.merge!(:community_member => attrs)
+      post :create, :community_member => attrs
       response.should be_redirect
 
       member = @community.members.find_by_email(attrs[:email])

@@ -1,5 +1,5 @@
-%p Welcome %{@member}!
+%p Welcome #{@member}!
 
 %p You can confirm your account through the link below:
 
-%p= link_to 'Confirm my account', community_member_confirmation_url(@community, :confirmation_token => @member.confirmation_token, :host => @community.host)
+%p= link_to 'Confirm my account', community_member_confirmation_url(@community, :confirmation_token => @member.confirmation_token)

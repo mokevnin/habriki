@@ -9,19 +9,19 @@ describe Web::Communities::Admin::BlogsController do
     @user = @community.user
     sign_in @user
 
-    @params = {:community_id => @community.to_param}
+    request.host = @community.hostname
   end
 
   describe "GET 'index'" do
     it "should be successful" do
-      get :index, @params
+      get :index
       response.should be_success
     end
   end
 
   describe "GET 'new'" do
     it "should be successful" do
-      get :new, @params
+      get :new
       response.should be_success
     end
   end
@@ -29,7 +29,7 @@ describe Web::Communities::Admin::BlogsController do
   describe "POST 'create'" do
     it "should be successful" do
       attrs = Factory.attributes_for 'community/blog'
-      post :create, @params.merge!(:community_blog => attrs)
+      post :create, :community_blog => attrs
       response.should be_redirect
 
       blog = @community.blogs.find_by_uri attrs[:uri]
@@ -39,7 +39,7 @@ describe Web::Communities::Admin::BlogsController do
 
   describe "GET 'edit'" do
     it "should be successful" do
-      get :edit, @params.merge!(:id => @blog.to_param)
+      get :edit, :id => @blog.to_param
       response.should be_success
     end
   end
@@ -47,7 +47,7 @@ describe Web::Communities::Admin::BlogsController do
   describe "PUT 'update'" do
     it "should be successful" do
       attrs = Factory.attributes_for 'community/blog'
-      post :update, @params.merge!(:id => @blog.to_param, :community_blog => attrs)
+      post :update, :id => @blog.to_param, :community_blog => attrs
       response.should be_redirect
 
       blog = @community.blogs.find_by_uri! attrs[:uri]
@@ -57,7 +57,7 @@ describe Web::Communities::Admin::BlogsController do
 
   describe "DELETE 'destroy'" do
     it "should be successful" do
-      delete :destroy, @params.merge!(:id => @blog.to_param)
+      delete :destroy, :id => @blog.to_param
       response.should be_redirect
 
       @community.blogs.exists?(@blog.id).should_not be

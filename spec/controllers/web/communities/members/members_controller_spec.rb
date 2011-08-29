@@ -5,7 +5,9 @@ describe Web::Communities::Members::MembersController do
 
   before do
     @member = Factory :active_community_member
-    @params = {:community_id => @member.community.to_param, :id => @member.to_param}
+    sign_in @member
+    @params = {:id => @member.to_param}
+    request.host = @member.community.hostname
   end
 
   describe "GET 'show'" do
@@ -15,6 +17,23 @@ describe Web::Communities::Members::MembersController do
     end
   end
 
+  describe "GET 'edit'" do
+    it "should be successful" do
+      get :edit, @params
+      response.should be_success
+    end
+  end
+
+  describe "PUT 'update'" do
+    it "should be successful" do
+      attrs = Factory.attributes_for('community/member')
+      put :update, @params.merge!(:community_member => attrs)
+      response.should be_redirect
+
+      @member.reload
+      @member.first_name.should == attrs[:first_name]
+    end
+  end
 end
 
 

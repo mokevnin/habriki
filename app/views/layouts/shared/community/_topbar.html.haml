@@ -1,0 +1,19 @@
+%div.topbar
+  %div.fill
+    %div.container
+      %h3= link_to community, :root
+      - form_tag community_search_path, :method => :get do
+        = search_field_tag :q, nil, :placeholder => 'Search'
+      %ul
+        - if signed_in?(:community_member)
+          - [[current_community_member, community_member_path(current_community_member)], ['settings', edit_community_member_path(current_community_member)]].each do |a|
+            %li{active_class(a[1])}= link_to a[0], a[1]
+          %li= link_to 'log out', destroy_community_member_session_path, :confirm => 'Are you sure?'
+        - else
+          - [['sign up', new_community_member_registration_path], ['sign in', new_community_member_session_path], ].each do |a|
+            %li{active_class(a[1])}= link_to a[0], a[1]
+      - if signed_in?(:user)
+        %ul.nav.secondary-nav
+          %li.menu
+            = link_to 'Admin', community_admin_root_path
+

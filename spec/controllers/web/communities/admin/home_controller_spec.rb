@@ -7,20 +7,17 @@ describe Web::Communities::Admin::HomeController do
     @community = Factory :active_community
     @user = @community.user
 
-    @params = {:community_id => @community.to_param}
+    request.host = @community.hostname
 
     sign_in @user
   end
 
   describe "GET 'index'" do
     it "should be successful" do
-      get :index, @params
+      get :index
       response.should be_success
     end
   end
 
 end
-
-
-
 

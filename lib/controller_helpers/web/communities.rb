@@ -11,6 +11,6 @@ module ControllerHelpers::Web::Communities
   private
 
   def community
-    @_community ||= Community.active.find_by_uri! params[:community_id]
+    @_community ||= Community.active.find_by_uri! request.subdomain
   end
 end

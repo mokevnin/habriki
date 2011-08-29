@@ -2,5 +2,6 @@ class ApplicationController < ActionController::Base
   #FIXME protect_from_forgery
 
   include SubdomainHelper
-  helper_method :subdomain, :url_for
+  #TODO
+  before_filter :set_mailer_url_options
 end

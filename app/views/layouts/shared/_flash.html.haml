@@ -1,4 +1,5 @@
-- [:notice, :error, :message, :alert].each do |key|
-  - if flash && flash[key].present?
-    %p{ :class => "flash #{key}" }= flash[key]
+- if flash.try :any?
+  - [:notice, :error, :message, :alert].each do |key|
+    - if flash[key].present?
+      %div{:class => "alert-message #{key}"}= flash[key]
 

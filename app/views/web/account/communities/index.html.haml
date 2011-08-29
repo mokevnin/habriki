@@ -10,7 +10,7 @@
     %tfoot
     - @communities.each do |community|
       %tr
-        %td= link_to_if community.active?, community, subdomain(community)
+        %td= link_to_if community.active?, community, root_url(:subdomain => community.to_param)
         %td= community.uri
         %td= community.state
         %td= l community.created_at

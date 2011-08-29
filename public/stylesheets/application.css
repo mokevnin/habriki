@@ -1,2 +1,3 @@
 #masthead { margin-top:70px; }
-input, select { margin-left:10px !important; }
+input, select, textarea { margin-left:10px !important; }
+.inline-block { display:inline-block }

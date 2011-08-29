@@ -1,0 +1,4 @@
+%ul.pills
+  - [['posts', :root], ['blogs', community_blogs_path]].each do |a|
+    %li{active_class(a[1])}= link_to a[0], a[1]
+

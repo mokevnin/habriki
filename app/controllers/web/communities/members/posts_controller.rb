@@ -4,7 +4,6 @@ class Web::Communities::Members::PostsController < Web::Communities::Members::Ap
   def index
     scope = member.send(current_community_member ? :posts : :published_posts)
     @posts = scope.page params[:page]
-
     title 'Posts'
   end
 
@@ -20,7 +19,7 @@ class Web::Communities::Members::PostsController < Web::Communities::Members::Ap
     @post = current_community_member.posts.build(params[:community_post])
     if @post.save
       flash[:notice] = 'Post was successfully created.'
-      redirect_to edit_community_member_post_path(community, member, @post)
+      redirect_to edit_community_member_post_path(member, @post)
     else
       render :action => "new"
     end
@@ -38,7 +37,9 @@ class Web::Communities::Members::PostsController < Web::Communities::Members::Ap
 
   def destroy
     send :edit
-    @post.destroy
+    if @post.try(:destroy)
+      flash[:notice] = 'Post was successfully removed.'
+    end
 
     redirect_to :action => :index
   end

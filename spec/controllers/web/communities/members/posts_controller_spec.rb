@@ -9,7 +9,8 @@ describe Web::Communities::Members::PostsController do
     @post = Factory :active_community_post, :community => @community, :member => @member
     sign_in @member
 
-    @params = {:community_id => @community.to_param, :member_id => @member.to_param}
+    @params = {:member_id => @member.to_param}
+    request.host = @community.hostname
   end
 
   describe "GET 'index'" do

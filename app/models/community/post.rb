@@ -2,7 +2,7 @@ class Community::Post < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :blog_id, :name, :body, :tag_list
+  attr_accessible :blog_id, :name, :body, :state_event, :tag_list
 
   validates :community, :presence => true
   validates :blog, :presence => true
@@ -27,7 +27,7 @@ class Community::Post < ActiveRecord::Base
     where sanitize_sql(:state => :active)
   end
 
-  state_machine :initial => :off do
+  state_machine :initial => :draft do
     state :draft
     state :draft_again
     state :active
@@ -37,7 +37,7 @@ class Community::Post < ActiveRecord::Base
     end
 
     event :disable do
-      transition all => :off
+      transition all => :draft
     end
   end
 

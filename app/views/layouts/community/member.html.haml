@@ -1,34 +1,29 @@
-!!! Strict
+!!! 5
 %html
   %head
     %title= community
-    = stylesheet_link_tag '/admin-template/css/960.css', '/admin-template/css/template.css', '/admin-template/css/colour.css', 'application'
-    =javascript_include_tag :defaults
-    %body
-      %div.container_16.right
-        - if signed_in?(:community_member)
-          = link_to_unless_current member, community_member_path(community, member)
-          = link_to 'log out', destroy_community_member_session_path(community)
-        - else
-          = link_to 'sign up', new_community_member_registration_path(community)
-          = link_to 'sign in', new_community_member_session_path(community)
-      %h1#head= community
-      %ul#navigation
-        %li
-          = link_to_unless_current 'Home', :root do |name|
-            %span.active= name
-        - if current_community_member
-          %li
-            = link_to_unless_current 'Edit', edit_community_member_path(community, member) do |name|
-              %span.active= name
-        %li
-          = link_to_unless_current 'Posts', community_member_posts_path(community, member) do |name|
-            %span.active= name
-      %div#content.container_16.clearfix
-        - if title
-          %h2= title
-        - [:notice, :error, :message, :alert].each do |key|
-          - unless flash[key].blank?
-            %p{ :class => "flash #{key}" }= flash[key]
-        = yield
+    = render :partial => 'layouts/shared/head'
+  %body
+    = render :partial => 'layouts/shared/community/topbar'
+    %div#masthead.container
+      %div.row
+        %div.span17
+          = render :partial => 'layouts/shared/community/header'
+          %div.page-header
+            %h4= member
+      %div.row
+        %div.container-fluid
+          %div.sidebar
+            - [['profile', community_member_path(member)], ['posts', community_member_posts_url(member)]].each do |a|
+              %br= link_to_unless_current a[0], a[1]
+            - if signed_in?(:community_member)
+              - [['new post', new_community_member_post_url(current_community_member)]].each do |a|
+                %br= link_to_unless_current a[0], a[1]
+          %div.content
+            - if title
+              %div.page-header
+                %h3= title
+            = render :partial => 'layouts/shared/flash', :locals => {:flash => flash}
+            = yield
+    = render :partial => 'layouts/shared/footer'
 

@@ -2,6 +2,7 @@ class Web::Communities::Blogs::PostsController < Web::Communities::ApplicationCo
 
   def index
     @posts = blog.published_posts.page params[:page]
+    title blog
   end
 
   def show

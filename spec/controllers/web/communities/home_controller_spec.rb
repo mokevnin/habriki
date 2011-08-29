@@ -3,13 +3,12 @@ require 'spec_helper'
 describe Web::Communities::HomeController do
   before do
     @post = Factory :active_community_post
-
-    @params = {:community_id => @post.community.to_param}
+    request.host = @post.community.hostname
   end
 
   describe "GET 'index'" do
     it "should be successful" do
-      get :index, @params
+      get :index
       response.should be_success
     end
   end

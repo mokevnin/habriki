@@ -1,40 +1,17 @@
 !!! 5
 %html
   %head
-    %title= community
-    = stylesheet_link_tag 'bootstrap/bootstrap-1.1.0', 'application'
-    = javascript_include_tag :defaults
-    = csrf_meta_tag
+    %title= title
+    = render :partial => 'layouts/shared/head'
   %body
-    %div.topbar
-      %div.fill
-        %div.container
-          %h3= link_to community, :root
-          - form_tag community_search_path(community), :method => :get do
-            = search_field_tag :q, nil, :placeholder => 'Search'
-          %ul
-            - if signed_in?(:community_member)
-              - [[current_community_member]]
-              = link_to current_community_member, community_member_path(community, current_community_member)
-              = link_to 'log out', destroy_community_member_session_path(community)
-            - else
-              - [['sign up', new_community_member_registration_path(community)], ['sign in', new_community_member_session_path(community)]].each do |a|
-                %li{active_class(a[1])}= link_to a[0], a[1]
-          -#- if current_user
-            -#%ul.nav.secondary-nav
-              -#%li.menu
-                -#= link_to current_user, :root, :class => :menu
-                -#%ul.menu-dropdown
-                  -#%li= link_to 'profile', edit_account_user_url
-                  -#%li= link_to 'my communities', account_communities_url
+    = render :partial => 'layouts/shared/community/topbar'
     %div#masthead.container
-      - if title
-        %div.page-header
-          %h1= title
-      = render 'layouts/shared/flash', :locals => {:flash => flash}
-      = yield
-    %footer
-      %div.container
-        %div.row
-          %div.span4
-            = link_to configatron.host_name, configatron.host
+      %div.row
+        %div.span14
+          = render :partial => 'layouts/shared/community/header'
+          - if title
+            %div.page-header
+              %h4= title
+          = yield
+    = render :partial => 'layouts/shared/footer'
+

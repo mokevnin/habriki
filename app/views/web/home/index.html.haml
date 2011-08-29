@@ -6,6 +6,6 @@
       %table
         - @communities.each do |community|
           %tr
-            %td= link_to community, subdomain(community)
+            %td= link_to community, url_for(:subdomain => community.uri)
             %td= community.user
 

@@ -2,9 +2,7 @@
 %html
   %head
     %title Habriki
-    = stylesheet_link_tag 'bootstrap/bootstrap-1.1.0', 'application'
-    = javascript_include_tag :defaults
-    = csrf_meta_tag
+    = render :partial => 'layouts/shared/head'
   %body
     %div.topbar
       %div.fill
@@ -23,7 +21,7 @@
       - if title
         %div.page-header
           %h1= title
-      = render  'layouts/shared/flash', :locals => {:flash => flash}
+      = render :partial => 'layouts/shared/flash', :locals => {:flash => flash}
       = yield
     %footer
       %div.container
